@@ -8,3 +8,5 @@ install_github("kristinbakka/generalizedPELT")
 ```
 
 See the files test-multivariate.R, test-univariate.R and plot-univariate.R for how to use it.
+
+The most important funcions (op and gpelt) are found in R/mycpt.R.
