@@ -7,4 +7,4 @@ library(devtools)
 install_github("kristinbakka/generalizedPELT")
 ```
 
-See the files test-multivariate.R and test-univariate.R for how to use it.
+See the files test-multivariate.R, test-univariate.R and plot-univariate.R for how to use it.
