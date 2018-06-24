@@ -4,7 +4,7 @@ The code from my master's thesis June 2018 on Pruned Exact Linear Time generaliz
 Install package:
 ```{r,eval=FALSE,warning=FALSE,message=FALSE}
 library(devtools)
-install_github("theabjorn/generalizedPELT")
+install_github("kristinbakka/generalizedPELT")
 ```
 
 See the files test-multivariate.R and test-univariate.R for how to use it.
