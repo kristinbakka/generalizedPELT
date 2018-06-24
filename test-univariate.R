@@ -1,6 +1,7 @@
+##test-univariate.R
 ## Here we see that gOP and gPELT give the same solutions,
 # but that they are sometimes different from the solutions from the package changepoint
-
+library(generalizedPELT)
 library(changepoint)
 library(MASS)
 

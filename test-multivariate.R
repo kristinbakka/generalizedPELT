@@ -1,5 +1,6 @@
+##test-multivariate.R
 ### Test gPELT and gOP with multivariate Gaussian
-
+library(generalizedPELT)
 types1=c("1d.mean","1d.meanvar","pd.meanvar.diag",
          "mbic.1d.mean","mbic.1d.meanvar","mbic.pd.meanvar.diag")
 types2=c("pd.mean","pd.meanvar.diag","pd.meanvar.full",
