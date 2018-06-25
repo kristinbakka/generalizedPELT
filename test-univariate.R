@@ -44,8 +44,10 @@ permOP.cpt
 ##########
 ## Compare the solutions from of the algorithms on several data sets
 ## Only mean varies
-data.set.1 <-runs.mycpt(runs=50,minseglen=1,pen=0,sigma=list(s1=1,s2=1),mu=list(mu1=0,mu2=1),
-                      order=c(1,1,2,1,2,1,1,2),each=1)
+number.of.simulations=50
+data.set.1 <-runs.mycpt(runs=number.of.simulations,minseglen=1,pen=0,
+                        sigma=list(s1=1,s2=1),mu=list(mu1=0,mu2=1),
+                        order=c(1,1,2,1,2,1,1,2),each=1)
 data.set.1$data = lapply(data.set.1$data,function(x) as.vector(x))
 
 ####
@@ -61,10 +63,15 @@ wrongpelt.sol <- pelt2.both.mycpt(data=data.set.1$data,attrb=attrb,type="1d.mean
 # This solution is from package changepoint
 firstpelt.sol<-lapply(data.set.1$data,cpt.mean,penalty="BIC",method="PELT",minseglen = 1, class=FALSE )
 
-# This is the case handeles in the OP
+## Here they are all identical as it is the case handled in Killick (2012).
 are.cpt.vecs.identical(op.sol,gpelt.sol)
-are.cpt.vecs.identical(wrongpelt.sol,firstpelt.sol)
 are.cpt.vecs.identical(op.sol,firstpelt.sol)
+are.cpt.vecs.identical(op.sol,wrongpelt.sol)
+
+# If all entries are TRUE then these return 1
+min(are.cpt.vecs.identical(op.sol,gpelt.sol))
+min(are.cpt.vecs.identical(op.sol,firstpelt.sol))
+min(are.cpt.vecs.identical(op.sol,wrongpelt.sol))
 
 
 ####
@@ -80,7 +87,6 @@ wrongpelt.sol.mbic <- pelt2.both.mycpt(data=data.set.1$data,attrb=attrb.mbic,typ
 # This solution is from package changepoint
 firstpelt.sol.mbic<-lapply(data.set.1$data,cpt.mean,penalty="MBIC",method="PELT",minseglen = 1, class=FALSE )
 
-## Here they are all identical as it is the case handled in Killick (2012).
 are.cpt.vecs.identical(op.sol.mbic,gpelt.sol.mbic)
 are.cpt.vecs.identical(op.sol.mbic,wrongpelt.sol.mbic)
 are.cpt.vecs.identical(op.sol.mbic,firstpelt.sol.mbic)
@@ -90,7 +96,9 @@ are.cpt.vecs.identical(op.sol.mbic,firstpelt.sol.mbic)
 ## Only mean and variance varies, minseglen is introduced
 
 ## With BIC - mean and variance
-data.set.2 <-runs.mycpt(runs=50,minseglen=2,pen=0,sigma=list(s1=1,s2=1),mu=list(mu1=0,mu2=1),
+number.of.simulations=60
+data.set.2 <-runs.mycpt(runs=number.of.simulations,minseglen=2,pen=0,
+                        sigma=list(s1=1,s2=1),mu=list(mu1=0,mu2=1),
                       order=c(1,1,2,2,1,2,2,1,1,2,2,1,1,1),each=1)
 data.set.2$data = lapply(data.set.2$data,function(x) as.vector(x))
 
@@ -104,14 +112,16 @@ gpelt.sol.mv <- gpelt.both.mycpt(data=data.set.2$data,attrb=attrb.mv,type="1d.me
 wrongpelt.sol.mv <- pelt2.both.mycpt(data=data.set.2$data,attrb=attrb.mv,type="1d.meanvar",both=FALSE)
 # This solution is from package changepoint
 firstpelt.sol.mv<-lapply(data.set.2$data,cpt.meanvar,penalty="Manual",
-                         pen.value=attrb.mv$pen,method="PELT",minseglen = 3, class=FALSE )
+                         pen.value=attrb.mv$pen,method="PELT",minseglen = 2, class=FALSE )
 
 
 are.cpt.vecs.identical(op.sol.mv,gpelt.sol.mv)
 are.cpt.vecs.identical(op.sol.mv,wrongpelt.sol.mv)
 are.cpt.vecs.identical(op.sol.mv,firstpelt.sol.mv)
+are.cpt.vecs.identical(wrongpelt.sol.mv,firstpelt.sol.mv)
 
-
-
-
-
+# If all entries are TRUE then these return 1, else 0
+min(are.cpt.vecs.identical(op.sol.mv,gpelt.sol.mv))
+min(are.cpt.vecs.identical(op.sol.mv,wrongpelt.sol.mv))
+min(are.cpt.vecs.identical(op.sol.mv,firstpelt.sol.mv))
+min(are.cpt.vecs.identical(wrongpelt.sol.mv,firstpelt.sol.mv))
